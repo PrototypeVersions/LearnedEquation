@@ -1,6 +1,6 @@
 # Learned Equation
 
-An interactive field guide from four tokens to one exact attention-model equation.
+An interactive field guide from six tokens to one exact attention-model equation.
 
 **Live site:** https://PrototypeVersions.github.io/LearnedEquation/
 
@@ -14,11 +14,13 @@ Serve this directory with `python3 -m http.server 8000`, then open http://localh
 
 With Node 18 or newer: `node --test tests/model.test.js`.
 
-The tests compare all 1,364 sequences of lengths 1–5 against an independently written scalar equation, verify a hand-derived example, causal masking, normalization, input errors, the 64-token UI limit, and stability under extreme logits.
+The tests compare all 9,330 sequences of lengths 1–5 against an independently written scalar equation, verify a hand-derived example, causal masking, normalization, input errors, the 64-token UI limit, and stability under extreme logits.
 
 ## Model contract
 
-Vocabulary order: cat, dog, runs, sleeps. Embedding size 2; one causal attention head; no position encoding, residual, feed-forward network, biases, or normalization. All 28 scalar weights are explicitly specified in model.js and shown in the lesson. Weights are hand-set, not trained. Output is a next-token probability distribution. “Append top token” uses deterministic argmax with vocabulary-order tie breaking; it is separate from the model.
+Vocabulary order: the, cat, dog, runs, sleeps, period. Embedding size 2; one causal attention head; no position encoding, residual, feed-forward network, biases, or normalization. All 36 scalar weights are explicitly specified in model.js and shown in the lesson. Weights are hand-set, not trained. Output is a next-token probability distribution. The weights favor article → noun → verb → period. "Complete the sentence" repeatedly evaluates the same equation and selects argmax, stopping at a predicted period, 12 generated tokens, or the 64-token input cap. No grammar filter is applied. Cat/dog share an embedding, as do runs/sleeps, so those pairs are deliberately indistinguishable to this toy. The parser also splits attached periods from words.
+
+“Append top token” uses deterministic argmax with vocabulary-order tie breaking; it is separate from the model.
 
 For input sequence x of length n, X = E(x):
 
@@ -26,7 +28,7 @@ For input sequence x of length n, X = E(x):
 
 M[i,j] is zero for j <= i and negative infinity otherwise. Brackets with subscript n select the last row. Softmax subtracts the maximum for numerical stability. Model computations use JavaScript double precision; displayed numbers are rounded. The full downloadable JSON trace serializes masked negative infinities as the string "-Infinity".
 
-Any nonempty sequence of the four tokens is mathematically valid. The UI caps prompts at 64 tokens to keep complete tables usable. Case is normalized, whitespace separates tokens, and repeated tokens are allowed. No position encoding means permutations preserving token counts and final token have identical final predictions (up to numerical rounding). This deliberate limitation is explained in the lesson alongside a smaller exact count-based description.
+Any nonempty sequence of the six tokens is mathematically valid. The UI caps prompts at 64 tokens to keep complete tables usable. Case is normalized, whitespace separates tokens, and repeated tokens are allowed. No position encoding means permutations preserving token counts and final token have identical final predictions (up to numerical rounding). This deliberate limitation is explained in the lesson alongside a smaller exact count-based description.
 
 ## GitHub Pages
 
