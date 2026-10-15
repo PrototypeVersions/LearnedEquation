@@ -15,7 +15,7 @@ export function renderPromptEquation(result) {
     <div class="prompt-equation-scroll" tabindex="0" role="region" aria-label="Full equation with numeric matrices">
       <div class="prompt-equation-line">
         <span>F(x) = softmax( [ R(</span>
-        <span class="numeric-fraction"><span class="numeric-numerator"><span>(</span>${input()}${numericMatrix(WQ,'query weights')}<span>)(</span>${input()}${numericMatrix(WK,'key weights')}<span>)<sup>ᵀ</sup></span><span class="numeric-denominator">√2</span></span>
+        <span class="numeric-fraction"><span class="numeric-numerator"><span>(</span>${input()}${numericMatrix(WQ,'query weights')}<span>)(</span>${input()}${numericMatrix(WK,'key weights')}<span>)<sup>ᵀ</sup></span></span><span class="numeric-denominator">√2</span></span>
         <span>+</span>${numericMatrix(mask,'causal mask')}<span>)</span>${input()}${numericMatrix(WV,'value weights')}<span>]<sub>${n}</sub></span>${numericMatrix(WO,'output weights')}<span>)</span>
       </div>
     </div>

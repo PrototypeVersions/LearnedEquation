@@ -1,4 +1,4 @@
-import {renderPromptEquation} from './equation.js';
+import {renderPromptEquation} from './equation.js?v=2';
 import {VOCAB,E,WQ,WK,WV,WO,parse,evaluate,softmax,complete,MAX_TOKENS} from './model.js';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const fmt=(x,d=4)=> x===-Infinity ? '−∞' : Object.is(x,-0) ? '0' : Number(x.toFixed(d)).toString().replace('-','−');
